@@ -155,7 +155,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 empMouseClicked(evt);
             }
         });
-        Main.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 270, 40));
+        Main.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 120, 40));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +168,7 @@ public class adminDashboard extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        Main.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+        Main.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

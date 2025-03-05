@@ -262,6 +262,7 @@ public class addemployee extends javax.swing.JFrame {
     String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = dbc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
         pstmt.setString(1, fn.getText().trim());
         pstmt.setString(2, ln.getText().trim());
         pstmt.setString(3, em.getText().trim());

@@ -314,7 +314,40 @@ public class adminUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        refreshTable();
+       DefaultTableModel model = (DefaultTableModel) admin.getModel(); 
+    model.setRowCount(0);
+    model.setColumnCount(0);
+
+    dbConnect dbc = new dbConnect(); 
+
+    try (Connection conn = dbc.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement("SELECT FirstName, LastName, Email, UserType, Username, Status FROM your_table_name");
+         ResultSet rs = pstmt.executeQuery()) {
+
+        
+        model.addColumn("First Name");
+        model.addColumn("Last Name");
+        model.addColumn("Email");
+        model.addColumn("User Type");
+        model.addColumn("Username");
+        model.addColumn("Status");
+
+        
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Email"),
+                    rs.getString("UserType"),
+                    rs.getString("Username"),
+                    rs.getString("Status")
+            });
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_refreshActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -392,6 +425,7 @@ public class adminUsers extends javax.swing.JFrame {
 
         while (rs.next()) {
             Object[] rowData = {
+                
                 rs.getString("FirstName"), 
                 rs.getString("LastName"),
                 rs.getString("Email"),
