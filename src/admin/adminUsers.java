@@ -68,12 +68,13 @@ public class adminUsers extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         admin = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         refresh = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         Main.setBackground(new java.awt.Color(0, 153, 153));
         Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -100,7 +101,7 @@ public class adminUsers extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        Navigator.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 170, 30));
+        Navigator.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 170, 30));
 
         jButton7.setBackground(new java.awt.Color(0, 153, 153));
         jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -111,10 +112,10 @@ public class adminUsers extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        Navigator.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 170, 30));
+        Navigator.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 170, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
-        Navigator.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 180, 290));
+        Navigator.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 290));
 
         jButton8.setBackground(new java.awt.Color(0, 153, 153));
         jButton8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -136,7 +137,7 @@ public class adminUsers extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        Navigator.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 170, 30));
+        Navigator.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 170, 30));
 
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 170, 650));
 
@@ -151,29 +152,7 @@ public class adminUsers extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(admin);
 
-        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 710, 440));
-
-        jButton4.setBackground(new java.awt.Color(0, 153, 153));
-        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 102, 102));
-        jButton4.setText("ADD");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        Main.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 170, 30));
-
-        jButton5.setBackground(new java.awt.Color(0, 153, 153));
-        jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 102, 102));
-        jButton5.setText("EDIT");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        Main.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 170, 30));
+        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 730, 440));
 
         jButton6.setBackground(new java.awt.Color(0, 153, 153));
         jButton6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -197,6 +176,28 @@ public class adminUsers extends javax.swing.JFrame {
         });
         Main.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 110, 170, 30));
 
+        jButton5.setBackground(new java.awt.Color(0, 153, 153));
+        jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 102, 102));
+        jButton5.setText("EDIT");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        Main.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 170, 30));
+
+        jButton4.setBackground(new java.awt.Color(0, 153, 153));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 102, 102));
+        jButton4.setText("ADD");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        Main.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 170, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,6 +212,7 @@ public class adminUsers extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

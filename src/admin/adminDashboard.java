@@ -10,7 +10,7 @@ import config.dbConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
+import net.proteanit.sql.DbUtils; 
 import payroll.l0ginform;
 import sun.security.util.Password;
 
@@ -70,9 +70,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         acc_user = new javax.swing.JButton();
         emp = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -155,20 +156,10 @@ public class adminDashboard extends javax.swing.JFrame {
                 empMouseClicked(evt);
             }
         });
-        Main.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 120, 40));
+        Main.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 120, 40));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        Main.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396-removebg-preview.png"))); // NOI18N
+        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 300, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,12 +173,13 @@ public class adminDashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
     l0ginform loginForm = new l0ginform();
     loginForm.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -273,7 +265,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel emp;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
