@@ -34,14 +34,6 @@ public class adminUsers extends javax.swing.JFrame {
         displayData();
     }
 
-    adminUsers(int employeeId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    adminUsers(JTable admin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
  public void displayData() {
     try {
         dbConnect dbc = new dbConnect();
@@ -57,21 +49,25 @@ public class adminUsers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
         Main = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        emp = new javax.swing.JLabel();
         Navigator = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        emp1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         admin = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         refresh = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -85,7 +81,17 @@ public class adminUsers extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("EMPLOYEE LIST");
-        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 900, 50));
+        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 970, 50));
+
+        emp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        emp.setText("USERS");
+        emp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                empMouseClicked(evt);
+            }
+        });
+        Header.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 170, 60));
 
         Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 70));
 
@@ -114,20 +120,6 @@ public class adminUsers extends javax.swing.JFrame {
         });
         Navigator.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 170, 30));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
-        Navigator.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 290));
-
-        jButton8.setBackground(new java.awt.Color(0, 153, 153));
-        jButton8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 102, 102));
-        jButton8.setText("INFORMATION");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        Navigator.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 30));
-
         jButton9.setBackground(new java.awt.Color(0, 153, 153));
         jButton9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton9.setForeground(new java.awt.Color(0, 102, 102));
@@ -139,7 +131,20 @@ public class adminUsers extends javax.swing.JFrame {
         });
         Navigator.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 170, 30));
 
-        Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 170, 650));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/852253-200.png"))); // NOI18N
+        Navigator.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 10, 180, 140));
+
+        emp1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        emp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        emp1.setText("USERS");
+        emp1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emp1MouseClicked(evt);
+            }
+        });
+        Navigator.add(emp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 170, 60));
+
+        Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 170, 650));
 
         admin.setForeground(new java.awt.Color(0, 153, 153));
         admin.setModel(new javax.swing.table.DefaultTableModel(
@@ -226,23 +231,26 @@ public class adminUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-   int selectedRow = admin.getSelectedRow();
+
+    int selectedRow = admin.getSelectedRow();
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(this, "Please select a user to edit.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    String username = admin.getValueAt(selectedRow, admin.getColumn("Username").getModelIndex()).toString();
-
-    if (username == null || username.trim().isEmpty()) { // Check for null or empty username
+    // Username is at column index 4 (Id, FirstName, LastName, Email, Username, Password, UserType, Status)
+    String username = admin.getValueAt(selectedRow, 4).toString();
+    if (username == null || username.trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Selected user has no username.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    edituser edt = new edituser();
-    edt.setUserData(username);
-    edt.setVisible(true);
+    System.out.println("Selected Username for editing: " + username);
+    edituser editForm = new edituser();
+    editForm.setVisible(true);
     this.dispose();
+
+    // Remove the redundant try-catch block with DriverManager
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -311,10 +319,6 @@ public class adminUsers extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
        DefaultTableModel model = (DefaultTableModel) admin.getModel(); 
     model.setRowCount(0);
@@ -333,7 +337,7 @@ public class adminUsers extends javax.swing.JFrame {
         model.addColumn("User Type");
         model.addColumn("Username");
         model.addColumn("Status");
-
+           
         
         while (rs.next()) {
             model.addRow(new Object[]{
@@ -342,7 +346,8 @@ public class adminUsers extends javax.swing.JFrame {
                     rs.getString("Email"),
                     rs.getString("UserType"),
                     rs.getString("Username"),
-                    rs.getString("Status")
+                    rs.getString("Status"),
+                    
             });
         }
 
@@ -357,6 +362,14 @@ public class adminUsers extends javax.swing.JFrame {
         ads.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_empMouseClicked
+
+    }//GEN-LAST:event_empMouseClicked
+
+    private void emp1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emp1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -398,13 +411,15 @@ public class adminUsers extends javax.swing.JFrame {
     private javax.swing.JPanel Main;
     private javax.swing.JPanel Navigator;
     private javax.swing.JTable admin;
+    private javax.swing.JLabel emp;
+    private javax.swing.JLabel emp1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -413,7 +428,7 @@ public class adminUsers extends javax.swing.JFrame {
 
     private void refreshTable() {
          try {
-        String url = "jdbc:mysql://localhost:3306/payroll_dbb"; 
+        String url = "jdbc:mysql://localhost:3306/payroll_dbbb"; 
         String dbUsername = "root"; 
         String dbPassword = "";
         Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword);

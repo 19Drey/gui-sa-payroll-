@@ -3,7 +3,7 @@ package config;
 public class Session {
 
     private static Session instance; // For singleton pattern
-    private String userId;
+    private int userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -77,11 +77,11 @@ public class Session {
         this.status = status;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -90,7 +90,7 @@ public class Session {
     }
 
     public void clear() {
-        this.userId = null;
+        int userId1 = this.userId;
         this.firstName = null;
         this.lastName = null;
         this.email = null;

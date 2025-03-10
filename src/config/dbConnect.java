@@ -6,18 +6,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class dbConnect {
 
     public static Connection getConnect() {
         dbConnect instance = new dbConnect(); // Create a new instance
-        return instance.getConnection();  
+        return instance.getConnection();
     }
     private Connection connect;
 
     public dbConnect() {
         try {
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_dbb", "root", "");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_dbbb", "root", "");
             System.out.println("Database connection successful!"); // Debugging
         } catch (SQLException ex) {
             System.err.println("Can't connect to database: " + ex.getMessage()); // Debugging
@@ -53,6 +54,31 @@ public class dbConnect {
         return result;
     }
 
-   
-   
+    public void closeConnection() { // Corrected method name
+        try {
+            if (connect != null && !connect.isClosed()) {
+                connect.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+     //Function to update data
+        public void updateData(String sql){
+            try{
+                PreparedStatement pst = connect.prepareStatement(sql);
+                    int rowsUpdated = pst.executeUpdate();
+                        if(rowsUpdated > 0){
+                            JOptionPane.showMessageDialog(null, "Data Updated Successfully!");
+                        }else{
+                            System.out.println("Data Update Failed!");
+                        }
+                        pst.close();
+            }catch(SQLException ex){
+                System.out.println("Connection Error: "+ex);
+            }
+        
+        }
+        
 }

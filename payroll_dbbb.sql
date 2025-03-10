@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 05, 2025 at 05:19 PM
+-- Generation Time: Mar 10, 2025 at 03:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `payroll_dbb`
+-- Database: `payroll_dbbb`
 --
 
 -- --------------------------------------------------------
@@ -28,27 +28,27 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `your_table_name` (
+  `id` int(11) NOT NULL,
   `FirstName` varchar(255) DEFAULT NULL,
   `LastName` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
-  `UserType` varchar(50) DEFAULT NULL,
-  `Username` varchar(255) NOT NULL,
+  `UserType` varchar(255) DEFAULT NULL,
+  `Username` varchar(255) DEFAULT NULL,
   `Password` varchar(255) DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL,
-  `id` int(50) DEFAULT NULL
+  `Status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `your_table_name`
 --
 
-INSERT INTO `your_table_name` (`FirstName`, `LastName`, `Email`, `UserType`, `Username`, `Password`, `Status`, `id`) VALUES
-('test', 'test', 'andreestrera20@gmail.com', 'USER', 'Andre', 'Estrera', 'Pending', 1),
-('testss', 'testss', 'a@gmail.com', 'ADMIN', 'Andreeee', 'Estrera', 'Pending', 2),
-('Hakdog', 'Hakdog', '1@gmail.com', 'USER', 'Hakdog', 'Hakdog', 'Pending', NULL),
-('testss', 'testttss', 'utot@gmail.com', 'EMPLOYEE', 'otoy12', 'otoy13', 'Pending', 3),
-('qwerty', 'qwerty', 'qwe@gmail.com', 'ADMIN', 'qwerty1', 'qwerty2', 'Pending', 4),
-('testss', 'testsss', 'tesss', 'USER', 'test', 'test11', 'Pending', 5);
+INSERT INTO `your_table_name` (`id`, `FirstName`, `LastName`, `Email`, `UserType`, `Username`, `Password`, `Status`) VALUES
+(1, 'root', 'root', 'root@gmail.com', 'USER', 'root', 'root123', 'Pending'),
+(2, 'Andre', 'Andre', 'And1232gmail.com', 'ADMIN', 'root123', 'root123', 'Pending'),
+(3, 'Estrera', 'Andre', 'andreestrera20@gmail.com', 'USER', 'i love you', 'i love you', 'Pending'),
+(13, 'TAE', 'Estrera', '12@gmail.com', 'EMPLOYEE', 'andre', '12345678', 'PENDING'),
+(14, 'Marilou', 'Estrera', 'estrera@gmail.com', 'USER', 'Marilou', '73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8=', 'Pending'),
+(15, 'ANAK', 'ESTRERA', 'hash@gmail.com', 'EMPLOYEE', 'TYPE!', 'mUP50zsiWezEl6q4Wh+UHouB2a4Oqg+3rPyVRgiFOkM=', 'Pending');
 
 --
 -- Indexes for dumped tables
@@ -58,8 +58,17 @@ INSERT INTO `your_table_name` (`FirstName`, `LastName`, `Email`, `UserType`, `Us
 -- Indexes for table `your_table_name`
 --
 ALTER TABLE `your_table_name`
-  ADD PRIMARY KEY (`Username`),
-  ADD UNIQUE KEY `Email` (`Email`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `your_table_name`
+--
+ALTER TABLE `your_table_name`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
