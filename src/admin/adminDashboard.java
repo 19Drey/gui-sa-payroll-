@@ -66,15 +66,14 @@ public class adminDashboard extends javax.swing.JFrame {
         Main = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        baboy = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Navigator = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        acc_user = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         emp = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -95,53 +94,26 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel2.setText("Admin Dashboard");
         Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 490, 50));
 
-        baboy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
-        Header.add(baboy, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 300, 70));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit (1).png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        Header.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 40, 70));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
-        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 210, 100));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
+        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 70));
 
         Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 70));
 
         Navigator.setBackground(new java.awt.Color(0, 204, 204));
         Navigator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 102, 102));
-        jButton2.setText("Cancel");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        Navigator.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 170, 30));
-
-        acc_user.setBackground(new java.awt.Color(0, 153, 153));
-        acc_user.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        acc_user.setForeground(new java.awt.Color(0, 102, 102));
-        acc_user.setText("EXIT");
-        acc_user.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                acc_userMouseClicked(evt);
-            }
-        });
-        acc_user.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acc_userActionPerformed(evt);
-            }
-        });
-        Navigator.add(acc_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 170, 30));
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/images-removebg-preview (1).png"))); // NOI18N
         Navigator.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 20, -1, 180));
 
-        emp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        emp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         emp.setText("USERS");
         emp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,26 +123,26 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         Navigator.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 170, 60));
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/times-hexagon (1).png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        Navigator.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 60, 80));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
+        Navigator.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 510));
+
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 170, 520));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396-removebg-preview.png"))); // NOI18N
-        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 300, 180));
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 153));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 102, 102));
-        jButton3.setText("Users");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                jLabel4MouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        Main.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 170, 30));
+        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 300, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,28 +160,6 @@ public class adminDashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    l0ginform loginForm = new l0ginform();
-    loginForm.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        adminUsers adu = new adminUsers();
-        adu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3MouseClicked
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    usersForm     aus= new usersForm();
-        aus.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     Session sess = Session.getInstance();
@@ -240,19 +190,27 @@ public class adminDashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowActivated
 
-    private void acc_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acc_userMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_acc_userMouseClicked
-
-    private void acc_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acc_userActionPerformed
-           int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
-    if (choice == JOptionPane.YES_OPTION) {
-        System.exit(0);}
-    }//GEN-LAST:event_acc_userActionPerformed
-
     private void empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_empMouseClicked
             
     }//GEN-LAST:event_empMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+         l0ginform loginForm = new l0ginform();
+    loginForm.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
+    if (choice == JOptionPane.YES_OPTION) {
+        System.exit(0);}
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+      usersForm     aus= new usersForm();
+        aus.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -293,14 +251,13 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Main;
     private javax.swing.JPanel Navigator;
-    private javax.swing.JButton acc_user;
-    private javax.swing.JLabel baboy;
     private javax.swing.JLabel emp;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

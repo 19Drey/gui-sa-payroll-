@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package admin;
 
 import config.dbConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import payroll.Regform;
@@ -232,17 +229,7 @@ public class addemployee extends javax.swing.JFrame {
     }//GEN-LAST:event_lnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-   if (fn.getText().trim().isEmpty() ||
-        ln.getText().trim().isEmpty() ||
-        em.getText().trim().isEmpty() ||
-        us.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Fill It", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    dbConnect dbc = new dbConnect();
-
-    if (fn.getText().trim().isEmpty() ||
+  if (fn.getText().trim().isEmpty() ||
         ln.getText().trim().isEmpty() ||
         em.getText().trim().isEmpty() ||
         us.getText().trim().isEmpty() ||
@@ -253,38 +240,71 @@ public class addemployee extends javax.swing.JFrame {
         return;
     }
 
+    String email = em.getText().trim();
+    if (!email.matches(".+@.+\\..+")) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
     String password = ps.getText().trim();
     if (password.length() > 8) {
         JOptionPane.showMessageDialog(this, "Password must be 8 characters or less.", "Password Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-  
-    String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    dbConnect dbc = new dbConnect();
 
-    try (Connection conn = dbc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        
-        pstmt.setString(1, fn.getText().trim());
-        pstmt.setString(2, ln.getText().trim());
-        pstmt.setString(3, em.getText().trim());
-        pstmt.setString(4, ty.getSelectedItem().toString());
-        pstmt.setString(5, us.getText().trim());
-        pstmt.setString(6, password); // Hash the password here!
-        pstmt.setString(7, "Pending");
+    try (Connection conn = dbc.getConnection()) { // Get connection and use try-with-resources
 
-        int rowsAffected = pstmt.executeUpdate();
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(this, "Added Successfully");
-            adminUsers adus = new adminUsers();
-            adus.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
+        // Check for existing username
+        String checkUsernameSql = "SELECT COUNT(*) FROM `your_table_name` WHERE Username = ?";
+        try (PreparedStatement checkUsernamePstmt = conn.prepareStatement(checkUsernameSql)) { // Remove ResultSet from try
+            checkUsernamePstmt.setString(1, us.getText().trim()); // Set parameter value first
+            try (ResultSet checkUsernameRs = checkUsernamePstmt.executeQuery()) { // Execute query after setting
+                if (checkUsernameRs.next() && checkUsernameRs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "Username already exists.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        }
+
+        // Check for existing email
+        String checkEmailSql = "SELECT COUNT(*) FROM `your_table_name` WHERE Email = ?";
+        try (PreparedStatement checkEmailPstmt = conn.prepareStatement(checkEmailSql)) { // Remove ResultSet from try
+            checkEmailPstmt.setString(1, email); // Set parameter value first
+            try (ResultSet checkEmailRs = checkEmailPstmt.executeQuery()) { // Execute query after setting
+                if (checkEmailRs.next() && checkEmailRs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "Email already exists.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        }
+
+        // Insert Data
+        String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, fn.getText().trim());
+            pstmt.setString(2, ln.getText().trim());
+            pstmt.setString(3, email);
+            pstmt.setString(4, ty.getSelectedItem().toString());
+            pstmt.setString(5, us.getText().trim());
+            pstmt.setString(6, password); // Hash the password here!
+            pstmt.setString(7, "Pending");
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Added Successfully");
+                usersForm adus = new usersForm();
+                adus.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     } catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace(); 
-}
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed

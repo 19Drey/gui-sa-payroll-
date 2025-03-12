@@ -5,12 +5,14 @@
  */
 package admin;
 
+import config.Session;
 import config.dbConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import payroll.l0ginform;
 
 /**
  *
@@ -29,7 +31,7 @@ public class createUserForm extends javax.swing.JFrame {
     }
 
     createUserForm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 
@@ -66,13 +68,13 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         use = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         Cancel = new javax.swing.JButton();
         Cancel3 = new javax.swing.JButton();
         u = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         Cancel5 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
+        pass = new javax.swing.JCheckBox();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,13 +110,13 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Password:");
-        Main.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 120, 30));
+        Main.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("STATUS:");
-        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 120, 40));
+        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 120, 40));
 
         us.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         us.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -132,7 +134,7 @@ public class createUserForm extends javax.swing.JFrame {
                 psActionPerformed(evt);
             }
         });
-        Main.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 230, 40));
+        Main.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 230, 40));
 
         em.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -141,19 +143,19 @@ public class createUserForm extends javax.swing.JFrame {
                 emActionPerformed(evt);
             }
         });
-        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 230, 50));
+        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 230, 50));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Last Name:");
-        Main.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 120, 30));
+        Main.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 120, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Email:");
-        Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 120, 40));
+        Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 120, 40));
 
         fn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -177,7 +179,7 @@ public class createUserForm extends javax.swing.JFrame {
                 lnActionPerformed(evt);
             }
         });
-        Main.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 230, 40));
+        Main.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 230, 40));
 
         ADD.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ADD.setText("ADD");
@@ -195,7 +197,7 @@ public class createUserForm extends javax.swing.JFrame {
                 tyActionPerformed(evt);
             }
         });
-        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 230, 50));
+        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 230, 50));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,19 +212,13 @@ public class createUserForm extends javax.swing.JFrame {
                 useActionPerformed(evt);
             }
         });
-        Main.add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 230, 50));
+        Main.add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 230, 50));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Type:");
-        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 120, 40));
-
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Type:");
-        Main.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 120, 40));
+        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 120, 40));
 
         Cancel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Cancel.setText("Cancel");
@@ -269,8 +265,17 @@ public class createUserForm extends javax.swing.JFrame {
         });
         Main.add(Cancel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 110, 20));
 
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo-1574610758891-5b809b6e6e2e (1).jpg"))); // NOI18N
-        Main.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 870, 510));
+        pass.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        pass.setText("Show");
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        Main.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 70, 30));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo-1574610758891-5b809b6e6e2e (1).jpg"))); // NOI18N
+        Main.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 870, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -530,6 +535,14 @@ private boolean userExists(String email, String username, String userId) {
         // TODO add your handling code here:
     }//GEN-LAST:event_Cancel5ActionPerformed
 
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        if (pass.isSelected()) {
+        ps.setEchoChar((char) 0); // Show the password
+    } else {
+        ps.setEchoChar('*'); // Hide the password
+    }
+    }//GEN-LAST:event_passActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -580,7 +593,6 @@ private boolean userExists(String email, String username, String userId) {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -590,6 +602,7 @@ private boolean userExists(String email, String username, String userId) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JTextField ln;
+    private javax.swing.JCheckBox pass;
     public javax.swing.JPasswordField ps;
     public javax.swing.JComboBox<String> ty;
     private javax.swing.JButton u;
