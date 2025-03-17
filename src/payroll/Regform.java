@@ -17,7 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import config.dbConnect;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+ 
 
 /**
  *
@@ -63,6 +66,7 @@ public class Regform extends javax.swing.JFrame {
         ty = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         ps = new javax.swing.JPasswordField();
+        pass = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,7 +84,7 @@ public class Regform extends javax.swing.JFrame {
         Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 610, 50));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
-        Header.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 90));
+        Header.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 90));
 
         Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 90));
 
@@ -88,7 +92,7 @@ public class Regform extends javax.swing.JFrame {
         Navigator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/images-removebg-preview (1).png"))); // NOI18N
-        Navigator.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 40, 210, 200));
+        Navigator.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 40, 210, 200));
         Navigator.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 170, 270));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
@@ -198,26 +202,32 @@ public class Regform extends javax.swing.JFrame {
         jLabel9.setText("Username:");
         Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 120, 30));
 
-        ps.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ps.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                psActionPerformed(evt);
+        ps.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                psKeyPressed(evt);
             }
         });
         Main.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, 230, 40));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
-        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 530, 460));
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        Main.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, 30, 40));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
+        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 510, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, 664, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();
@@ -283,84 +293,104 @@ public class Regform extends javax.swing.JFrame {
     }//GEN-LAST:event_lnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-   if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
+  if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    
     if (ps.getText().trim().length() < 8) {
         JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.", "Password Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-   
     if (!em.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
         JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Email Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-  
-    String contactNumber = "";
-   
     String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-   try (Connection conn = dbConnect.getConnect();
-     PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Username` = ?");
-     PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Email` = ?");
-     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = dbConnect.getConnect();
+         PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Username` = ?");
+         PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Email` = ?");
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-    checkStmt.setString(1, us.getText().trim());
-    emailCheckStmt.setString(1, em.getText().trim());
+        checkStmt.setString(1, us.getText().trim());
+        emailCheckStmt.setString(1, em.getText().trim());
 
-    try (ResultSet rs = checkStmt.executeQuery();
-         ResultSet emailRs = emailCheckStmt.executeQuery()) {
+        try (ResultSet rs = checkStmt.executeQuery();
+             ResultSet emailRs = emailCheckStmt.executeQuery()) {
 
-        if (rs.next() && rs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(this, "Error: Username already exists. Please choose a different username.", "Database Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(this, "Error: Username already exists. Please choose a different username.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (emailRs.next() && emailRs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(this, "Error: Email already exists. Please choose a different email.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            pstmt.setString(1, fn.getText().trim());
+            pstmt.setString(2, ln.getText().trim());
+            pstmt.setString(3, em.getText().trim());
+            pstmt.setString(4, ty.getSelectedItem().toString());
+            pstmt.setString(5, us.getText().trim());
+
+        
+            String hashedPassword = null;
+            try {
+                hashedPassword = Hash.hashPassword(ps.getText().trim());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Regform.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error: Password hashing failed.", "Hashing Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            pstmt.setString(6, hashedPassword);
+
+            pstmt.setString(7, "Pending");
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Added Successfully");
+                l0ginform loginForm = new l0ginform();
+                loginForm.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
-        if (emailRs.next() && emailRs.getInt(1) > 0) {
-            JOptionPane.showMessageDialog(this, "Error: Email already exists. Please choose a different email.", "Database Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
 
-        pstmt.setString(1, fn.getText().trim());
-        pstmt.setString(2, ln.getText().trim());
-        pstmt.setString(3, em.getText().trim());
-        pstmt.setString(4, ty.getSelectedItem().toString());
-        pstmt.setString(5, us.getText().trim());
-        String hashedPassword = Hash.hashPassword(ps.getText().trim());
-        pstmt.setString(6, hashedPassword);
-        pstmt.setString(7, "Pending");
 
-        int rowsAffected = pstmt.executeUpdate();
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(this, "Added Successfully");
-            l0ginform loginForm = new l0ginform();
-            loginForm.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }  catch (NoSuchAlgorithmException ex) {
-           Logger.getLogger(Regform.class.getName()).log(Level.SEVERE, null, ex);
-       }
 
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();
+    
+
     
     }//GEN-LAST:event_jButton3ActionPerformed
-    }
+
     private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tyActionPerformed
 
-    private void psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_psActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_psActionPerformed
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        if (pass.isSelected()) {
+        ps.setEchoChar((char) 0); 
+    } else {
+        ps.setEchoChar('*'); 
+    }
+
+    }//GEN-LAST:event_passActionPerformed
+
+    private void psKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psKeyPressed
+      
+    
+    }//GEN-LAST:event_psKeyPressed
 
     /**
      * @param args the command line arguments
@@ -419,6 +449,7 @@ public class Regform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField ln;
+    private javax.swing.JCheckBox pass;
     private javax.swing.JPasswordField ps;
     private javax.swing.JComboBox<String> ty;
     private javax.swing.JTextField us;

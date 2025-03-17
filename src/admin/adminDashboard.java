@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils; 
 import payroll.l0ginform;
 import sun.security.util.Password;
+import user.accountDetails;
 
 /**
  *
@@ -73,7 +74,16 @@ public class adminDashboard extends javax.swing.JFrame {
         emp = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        add_employee = new javax.swing.JButton();
+        add_employee1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -136,19 +146,79 @@ public class adminDashboard extends javax.swing.JFrame {
 
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 170, 520));
 
+        add_employee.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        add_employee.setText("Employee Manager");
+        add_employee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_employeeActionPerformed(evt);
+            }
+        });
+        Main.add(add_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        add_employee1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        add_employee1.setText("Employee Manager");
+        add_employee1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_employee1ActionPerformed(evt);
+            }
+        });
+        Main.add(add_employee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.setLayout(null);
+        Main.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, -1));
+
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+        jPanel2.setLayout(null);
+
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/852253-200.png"))); // NOI18N
+        jLabel8.setText("ACCOUNT");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(0, 10, 300, 90);
+
+        Main.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 390, 110));
+
+        jPanel3.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396-removebg-preview.png"))); // NOI18N
+        jLabel4.setText("USERS");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
             }
         });
-        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 300, 180));
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(-60, 10, 450, 180);
+
+        Main.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 390, 180));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Deduction.png"))); // NOI18N
+        jLabel9.setText("Deduction");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 190, 70));
+
+        Main.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 390, 90));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
+        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 70, 830, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -212,6 +282,27 @@ public class adminDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void add_employeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_employeeActionPerformed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_add_employeeActionPerformed
+
+    private void add_employee1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_employee1ActionPerformed
+      
+    }//GEN-LAST:event_add_employee1ActionPerformed
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+           employeeDeductions x = new employeeDeductions();
+         x.setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+      accountDetails   acd = new accountDetails();
+      acd.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jPanel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -251,13 +342,22 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Main;
     private javax.swing.JPanel Navigator;
+    private javax.swing.JButton add_employee;
+    private javax.swing.JButton add_employee1;
     private javax.swing.JLabel emp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

@@ -66,8 +66,7 @@ public class usersForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         add = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         admin = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -182,33 +181,47 @@ public class usersForm extends javax.swing.JFrame {
         });
         Navigator.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 60, 60));
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash (1).png"))); // NOI18N
+        jLabel8.setText("DELETE");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel8MouseEntered(evt);
+            }
         });
-        Navigator.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 50, 70));
+        Navigator.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 130, 70));
 
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen-circle (1).png"))); // NOI18N
+        jLabel9.setText("EDIT");
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel9MouseEntered(evt);
+            }
         });
-        Navigator.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 50, 60));
+        Navigator.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 100, 60));
 
+        add.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user-add (1) (1).png"))); // NOI18N
+        add.setText("ADD");
         add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
         });
-        Navigator.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 50, 60));
+        Navigator.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 60));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
-        Navigator.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 600));
-        Navigator.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 590));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
+        Navigator.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, 600));
 
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 170, 650));
 
@@ -389,7 +402,7 @@ if (selectedRow < 0) {
 try {
     dbConnect dbc = new dbConnect();
     TableModel model = admin.getModel();
-    int userId = (Integer) model.getValueAt(selectedRow, 0); // Get as Integer, no parsing needed
+    int userId = (Integer) model.getValueAt(selectedRow, 0);
 
     String sql = "SELECT id, FirstName, LastName, Email, UserType, Username, Password, Status FROM `your_table_name` WHERE id = ?";
     try (PreparedStatement pstmt = dbc.getConnection().prepareStatement(sql)) {
@@ -402,13 +415,13 @@ try {
                 crf.ln.setText(rs.getString("LastName"));
                 crf.em.setText(rs.getString("Email"));
                 crf.us.setText(rs.getString("Username"));
-                crf.ps.setText(rs.getString("Password"));
+               
 
                 crf.ty.setSelectedItem(rs.getString("UserType"));
                 crf.use.setSelectedItem(rs.getString("Status"));
-
-                crf.ADD.setEnabled(true);
-
+                   
+                
+                 createUserForm adm = new createUserForm();
                 crf.setVisible(true);
                 this.dispose();
             } else {
@@ -423,12 +436,25 @@ try {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-createUserForm fm = new createUserForm();
-    fm.setVisible(true);
-    this.dispose();
+addemployee adm = new addemployee();
+adm.setVisible(true);
+this.dispose();
+
   
 
     }//GEN-LAST:event_addMouseClicked
+
+    private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel8MouseEntered
+
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+    
+    }//GEN-LAST:event_addMouseEntered
+
+    private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseEntered
 
     /**
      * @param args the command line arguments
@@ -475,9 +501,8 @@ createUserForm fm = new createUserForm();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

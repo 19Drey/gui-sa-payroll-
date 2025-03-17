@@ -94,8 +94,8 @@ public class l0ginform extends javax.swing.JFrame {
         Header.setBackground(new java.awt.Color(0, 153, 130));
         Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("                                           LOGIN");
         jLabel2.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
@@ -115,7 +115,7 @@ public class l0ginform extends javax.swing.JFrame {
         Navigator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ANdre logo.png"))); // NOI18N
-        Navigator.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 170, 180));
+        Navigator.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 160, 170));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
         Navigator.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 410));
@@ -193,7 +193,9 @@ public class l0ginform extends javax.swing.JFrame {
         });
         Main.add(regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 230, 40));
 
+        showpass.setBackground(new java.awt.Color(0, 0, 0));
         showpass.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        showpass.setForeground(new java.awt.Color(255, 255, 255));
         showpass.setText("Show password");
         showpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +205,7 @@ public class l0ginform extends javax.swing.JFrame {
         Main.add(showpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo-1574610758891-5b809b6e6e2e (1).jpg"))); // NOI18N
-        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 380, 270));
+        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 380, 270));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
         Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 690, 410));
@@ -241,13 +243,8 @@ public class l0ginform extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-  String username = us.getText().trim();
+String username = us.getText().trim();
 String password = new String(ps.getPassword()).trim();
-  try {
-        handleLogin(this, us, ps);
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-    }
 
 if (username.isEmpty() || password.isEmpty()) {
     JOptionPane.showMessageDialog(this, "Username and password cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -255,20 +252,22 @@ if (username.isEmpty() || password.isEmpty()) {
 }
 
 try {
+    String hashedPassword = Hash.hashPassword(password);
+
     String url = "jdbc:mysql://localhost:3306/payroll_dbbb";
     String dbUsername = "root";
     String dbPassword = "";
 
-    // Use try-with-resources
     try (Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) { // Replace "users"
-        pst.setString(1, username);
-        pst.setString(2, password); // In a real application, hash the password before this step
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) {
 
+        pst.setString(1, username);
+        pst.setString(2, hashedPassword); 
         try (ResultSet rs = pst.executeQuery()) {
             if (rs.next()) {
+               
                 Session ses = Session.getInstance();
-             ses.setUserId(rs.getInt("id")); 
+                ses.setUserId(rs.getInt("id"));
                 ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
                 ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
                 ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
@@ -282,6 +281,7 @@ try {
                 adminDashboard adm = new adminDashboard();
                 adm.setVisible(true);
                 this.dispose();
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
@@ -291,7 +291,9 @@ try {
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     ex.printStackTrace();
-}
+} catch (NoSuchAlgorithmException ex) {
+    JOptionPane.showMessageDialog(this, "Hashing Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();}
            
     }//GEN-LAST:event_passActionPerformed
 
@@ -327,16 +329,10 @@ try {
     }//GEN-LAST:event_showpassActionPerformed
 
     private void psKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psKeyPressed
-      if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-      
-      
-       String username = us.getText().trim();
+  if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+   String username = us.getText().trim();
 String password = new String(ps.getPassword()).trim();
-  try {
-        handleLogin(this, us, ps);
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-    }
 
 if (username.isEmpty() || password.isEmpty()) {
     JOptionPane.showMessageDialog(this, "Username and password cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -344,20 +340,22 @@ if (username.isEmpty() || password.isEmpty()) {
 }
 
 try {
+    String hashedPassword = Hash.hashPassword(password);
+
     String url = "jdbc:mysql://localhost:3306/payroll_dbbb";
     String dbUsername = "root";
     String dbPassword = "";
 
-    // Use try-with-resources
     try (Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) { // Replace "users"
-        pst.setString(1, username);
-        pst.setString(2, password); // In a real application, hash the password before this step
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) {
 
+        pst.setString(1, username);
+        pst.setString(2, hashedPassword); 
         try (ResultSet rs = pst.executeQuery()) {
             if (rs.next()) {
+               
                 Session ses = Session.getInstance();
-             ses.setUserId(rs.getInt("id")); 
+                ses.setUserId(rs.getInt("id"));
                 ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
                 ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
                 ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
@@ -371,6 +369,7 @@ try {
                 adminDashboard adm = new adminDashboard();
                 adm.setVisible(true);
                 this.dispose();
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
@@ -380,14 +379,10 @@ try {
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     ex.printStackTrace();
+} catch (NoSuchAlgorithmException ex) {
+    JOptionPane.showMessageDialog(this, "Hashing Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();}    //Removed handle login, as it's not clear what it does.
 }
-      
-      
-      
-      
-      
-      
-      }
     }//GEN-LAST:event_psKeyPressed
 
     /**

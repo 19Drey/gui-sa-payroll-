@@ -8,10 +8,12 @@ package admin;
 import config.Session;
 import config.dbConnect;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import payroll.l0ginform;
 
 /**
@@ -63,14 +65,13 @@ public class createUserForm extends javax.swing.JFrame {
         fn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         ln = new javax.swing.JTextField();
-        ADD = new javax.swing.JButton();
         ty = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         use = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         Cancel = new javax.swing.JButton();
         Cancel3 = new javax.swing.JButton();
-        u = new javax.swing.JButton();
+        upd = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         Cancel5 = new javax.swing.JButton();
         pass = new javax.swing.JCheckBox();
@@ -181,15 +182,6 @@ public class createUserForm extends javax.swing.JFrame {
         });
         Main.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 230, 40));
 
-        ADD.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        ADD.setText("ADD");
-        ADD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ADDActionPerformed(evt);
-            }
-        });
-        Main.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 110, 20));
-
         ty.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT TYPE", "USER", "EMPLOYEE", "CEO" }));
         ty.addActionListener(new java.awt.event.ActionListener() {
@@ -236,16 +228,17 @@ public class createUserForm extends javax.swing.JFrame {
                 Cancel3ActionPerformed(evt);
             }
         });
-        Main.add(Cancel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 110, 20));
+        Main.add(Cancel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 110, 20));
 
-        u.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        u.setText("UPDATE");
-        u.addActionListener(new java.awt.event.ActionListener() {
+        upd.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        upd.setText("UPDATE");
+        upd.setEnabled(false);
+        upd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uActionPerformed(evt);
+                updActionPerformed(evt);
             }
         });
-        Main.add(u, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 110, 20));
+        Main.add(upd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 110, 20));
 
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton1.setText("EXIT");
@@ -365,75 +358,6 @@ public class createUserForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lnActionPerformed
 
-    private void ADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ADDActionPerformed
-       if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    if (ps.getText().trim().length() < 8) {
-        JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.", "Password Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    if (!em.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Email Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    String contactNumber = "";
-
-    String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    try (Connection conn = dbConnect.getConnect();
-         PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Username` = ?");
-         PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Email` = ?");
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-        checkStmt.setString(1, us.getText().trim());
-        emailCheckStmt.setString(1, em.getText().trim());
-
-        try (ResultSet rs = checkStmt.executeQuery(); ResultSet emailRs = emailCheckStmt.executeQuery()) {
-            if (rs.next() && rs.getInt(1) > 0) {
-                JOptionPane.showMessageDialog(this, "Error: Username already exists. Please choose a different username.", "Database Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-           if (emailRs.next() && emailRs.getInt(1) > 0) {
-    int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to edit this user with an existing email?", "Confirm Edit", JOptionPane.YES_NO_OPTION);
-    if (choice == JOptionPane.YES_OPTION) {
-        // Proceed with the edit even though the email exists
-    } else {
-        JOptionPane.showMessageDialog(this, "Edit canceled.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        return; // Stop the edit process
-    }
-}
-
-            pstmt.setString(1, fn.getText().trim());
-            pstmt.setString(2, ln.getText().trim());
-            pstmt.setString(3, em.getText().trim());
-            pstmt.setString(4, ty.getSelectedItem().toString());
-            pstmt.setString(5, us.getText().trim());
-            pstmt.setString(6, ps.getText().trim());
-            pstmt.setString(7, use.getSelectedItem().toString()); 
-          
-
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Added Successfully");
-                usersForm usf = new usersForm();
-                usf.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    }
-    }//GEN-LAST:event_ADDActionPerformed
-
     private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tyActionPerformed
@@ -442,7 +366,7 @@ public class createUserForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_useActionPerformed
 
-    private void uActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uActionPerformed
+    private void updActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updActionPerformed
       try {
         // 1. Get values from form fields
         String firstName = fn.getText().trim();
@@ -518,7 +442,7 @@ private boolean userExists(String email, String username, String userId) {
         ex.printStackTrace();
     }
     return false;
-    }//GEN-LAST:event_uActionPerformed
+    }//GEN-LAST:event_updActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
    int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "", JOptionPane.YES_NO_OPTION);
@@ -528,11 +452,61 @@ private boolean userExists(String email, String username, String userId) {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Cancel3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel3ActionPerformed
-        // TODO add your handling code here:
+   int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?", "Delete User", JOptionPane.YES_NO_OPTION);
+if (x == 0) {
+    try {
+        Connection connection  = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_dbbb", "root", ""); 
+
+        String username = us.getText();
+
+       
+        String sql = "DELETE FROM your_table_name WHERE username = ?"; // Replace your_table_name
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, username);
+
+        int rowsAffected = preparedStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "User deleted successfully.");
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found or deletion failed.");
+        }
+
+        preparedStatement.close();
+        connection.close();
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
+    }
+} else {
+  
+}
+
+
+    fn.setText("");
+    ln.setText("");
+    us.setText("");
+    ps.setText("");
+    em.setText("");
+    ty.setSelectedIndex(0);
+    use.setSelectedIndex(0); 
+
+      usersForm adu =new usersForm();
+        adu.setVisible(true);
+        this.dispose();                             
+
     }//GEN-LAST:event_Cancel3ActionPerformed
 
     private void Cancel5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel5ActionPerformed
-        // TODO add your handling code here:
+      
+        fn.setText("");
+       ln.setText("");
+       em.setText("");
+        us.setText("");
+        ps.setText("");
+       
     }//GEN-LAST:event_Cancel5ActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
@@ -579,7 +553,6 @@ private boolean userExists(String email, String username, String userId) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton ADD;
     private javax.swing.JButton Cancel;
     private javax.swing.JButton Cancel3;
     private javax.swing.JButton Cancel5;
@@ -605,7 +578,7 @@ private boolean userExists(String email, String username, String userId) {
     private javax.swing.JCheckBox pass;
     public javax.swing.JPasswordField ps;
     public javax.swing.JComboBox<String> ty;
-    private javax.swing.JButton u;
+    private javax.swing.JButton upd;
     public javax.swing.JTextField us;
     public javax.swing.JComboBox<String> use;
     // End of variables declaration//GEN-END:variables

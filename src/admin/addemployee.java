@@ -1,11 +1,15 @@
 
 package admin;
 
+import config.Hash;
 import config.dbConnect;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import payroll.Regform;
 import payroll.l0ginform;
@@ -35,23 +39,29 @@ public class addemployee extends javax.swing.JFrame {
         Main = new javax.swing.JPanel();
         Header = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         Navigator = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         us = new javax.swing.JTextField();
         ps = new javax.swing.JPasswordField();
-        Cancel = new javax.swing.JButton();
         em = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         fn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         ln = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         ty = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
+        use = new javax.swing.JComboBox<>();
+        add = new javax.swing.JButton();
+        Cancel = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        papas = new javax.swing.JCheckBox();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,16 +72,24 @@ public class addemployee extends javax.swing.JFrame {
         Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("                              ADD");
-        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 32, 590, 50));
+        Header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-240, 30, 840, 50));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo-1574610758891-5b809b6e6e2e (1).jpg"))); // NOI18N
+        Header.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 100));
 
         Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 100));
 
         Navigator.setBackground(new java.awt.Color(0, 204, 204));
         Navigator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/th.jpg"))); // NOI18N
-        Navigator.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 420));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ANdre logo.png"))); // NOI18N
+        Navigator.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 150));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
+        Navigator.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 450));
 
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 220, 450));
 
@@ -79,17 +97,17 @@ public class addemployee extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Registration Form");
-        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 370, 50));
+        Main.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 370, 50));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Password:");
-        Main.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, 120, 30));
+        Main.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Type:");
-        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 120, 30));
+        Main.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 120, 30));
 
         us.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         us.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -98,7 +116,7 @@ public class addemployee extends javax.swing.JFrame {
                 usActionPerformed(evt);
             }
         });
-        Main.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 230, 40));
+        Main.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 230, 40));
 
         ps.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ps.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -107,16 +125,7 @@ public class addemployee extends javax.swing.JFrame {
                 psActionPerformed(evt);
             }
         });
-        Main.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 230, 40));
-
-        Cancel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        Cancel.setText("Cancel");
-        Cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelActionPerformed(evt);
-            }
-        });
-        Main.add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 110, 30));
+        Main.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 230, 40));
 
         em.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -125,17 +134,17 @@ public class addemployee extends javax.swing.JFrame {
                 emActionPerformed(evt);
             }
         });
-        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 230, 40));
+        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 230, 40));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Last Name:");
-        Main.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 120, 30));
+        Main.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 120, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Email:");
-        Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 120, 30));
+        Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 120, 30));
 
         fn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -144,12 +153,12 @@ public class addemployee extends javax.swing.JFrame {
                 fnActionPerformed(evt);
             }
         });
-        Main.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 230, 40));
+        Main.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 230, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("First Name:");
-        Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 120, 30));
+        Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 120, 30));
 
         ln.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ln.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -158,16 +167,7 @@ public class addemployee extends javax.swing.JFrame {
                 lnActionPerformed(evt);
             }
         });
-        Main.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 230, 40));
-
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setText("ADD");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        Main.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 490, 110, 30));
+        Main.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 230, 40));
 
         ty.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT TYPE", "ADMIN", "USER", "EMPLOYEE" }));
@@ -176,12 +176,55 @@ public class addemployee extends javax.swing.JFrame {
                 tyActionPerformed(evt);
             }
         });
-        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 230, 40));
+        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 230, 40));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Username:");
-        Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 120, 30));
+        Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 120, 30));
+
+        use.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        use.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT STATUS", "ACTIVE", "PENDING" }));
+        use.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useActionPerformed(evt);
+            }
+        });
+        Main.add(use, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, 230, 50));
+
+        add.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        add.setText("ADD");
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
+        Main.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 510, 80, 30));
+
+        Cancel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Cancel.setText("Cancel");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelActionPerformed(evt);
+            }
+        });
+        Main.add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 510, 90, 30));
+
+        jLabel10.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("STATUS:");
+        Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 120, 40));
+
+        papas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                papasActionPerformed(evt);
+            }
+        });
+        Main.add(papas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, 30, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
+        Main.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 380, 450));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,7 +251,7 @@ public class addemployee extends javax.swing.JFrame {
     }//GEN-LAST:event_psActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-      adminUsers adu = new adminUsers();
+      usersForm adu =new usersForm();
         adu.setVisible(true);
         this.dispose();                             
 
@@ -228,88 +271,105 @@ public class addemployee extends javax.swing.JFrame {
    
     }//GEN-LAST:event_lnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-  if (fn.getText().trim().isEmpty() ||
-        ln.getText().trim().isEmpty() ||
-        em.getText().trim().isEmpty() ||
-        us.getText().trim().isEmpty() ||
-        ps.getText().trim().isEmpty() ||
-        ty.getSelectedItem() == null ||
-        ty.getSelectedItem().toString().equals("SELECT TYPE")) {
-        JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
 
-    String email = em.getText().trim();
-    if (!email.matches(".+@.+\\..+")) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
 
-    String password = ps.getText().trim();
-    if (password.length() > 8) {
-        JOptionPane.showMessageDialog(this, "Password must be 8 characters or less.", "Password Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
 
-    dbConnect dbc = new dbConnect();
 
-    try (Connection conn = dbc.getConnection()) { // Get connection and use try-with-resources
 
-        // Check for existing username
-        String checkUsernameSql = "SELECT COUNT(*) FROM `your_table_name` WHERE Username = ?";
-        try (PreparedStatement checkUsernamePstmt = conn.prepareStatement(checkUsernameSql)) { // Remove ResultSet from try
-            checkUsernamePstmt.setString(1, us.getText().trim()); // Set parameter value first
-            try (ResultSet checkUsernameRs = checkUsernamePstmt.executeQuery()) { // Execute query after setting
-                if (checkUsernameRs.next() && checkUsernameRs.getInt(1) > 0) {
-                    JOptionPane.showMessageDialog(this, "Username already exists.", "Database Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
+if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+if (ps.getText().trim().length() < 8) {
+    JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.", "Password Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+if (!em.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+    JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Email Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+String contactNumber = "";
+
+String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+try (Connection conn = dbConnect.getConnect();
+     PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Username` = ?");
+     PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Email` = ?");
+     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+    checkStmt.setString(1, us.getText().trim());
+    emailCheckStmt.setString(1, em.getText().trim());
+
+    try (ResultSet rs = checkStmt.executeQuery(); ResultSet emailRs = emailCheckStmt.executeQuery()) {
+        if (rs.next() && rs.getInt(1) > 0) {
+            JOptionPane.showMessageDialog(this, "Error: Username already exists. Please choose a different username.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        // Check for existing email
-        String checkEmailSql = "SELECT COUNT(*) FROM `your_table_name` WHERE Email = ?";
-        try (PreparedStatement checkEmailPstmt = conn.prepareStatement(checkEmailSql)) { // Remove ResultSet from try
-            checkEmailPstmt.setString(1, email); // Set parameter value first
-            try (ResultSet checkEmailRs = checkEmailPstmt.executeQuery()) { // Execute query after setting
-                if (checkEmailRs.next() && checkEmailRs.getInt(1) > 0) {
-                    JOptionPane.showMessageDialog(this, "Email already exists.", "Database Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-        }
-
-        // Insert Data
-        String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, fn.getText().trim());
-            pstmt.setString(2, ln.getText().trim());
-            pstmt.setString(3, email);
-            pstmt.setString(4, ty.getSelectedItem().toString());
-            pstmt.setString(5, us.getText().trim());
-            pstmt.setString(6, password); // Hash the password here!
-            pstmt.setString(7, "Pending");
-
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Added Successfully");
-                usersForm adus = new usersForm();
-                adus.setVisible(true);
-                this.dispose();
+        if (emailRs.next() && emailRs.getInt(1) > 0) {
+            int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to edit this user with an existing email?", "Confirm Edit", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                // Proceed with the edit even though the email exists
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Edit canceled.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                return; // Stop the edit process
             }
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
+
+        pstmt.setString(1, fn.getText().trim());
+        pstmt.setString(2, ln.getText().trim());
+        pstmt.setString(3, em.getText().trim());
+        pstmt.setString(4, ty.getSelectedItem().toString());
+        pstmt.setString(5, us.getText().trim());
+
+        // Hash the password before storing it
+        String hashedPassword = null;
+        try {
+            hashedPassword = Hash.hashPassword(ps.getText().trim());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Regform.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error: Password hashing failed.", "Hashing Error", JOptionPane.ERROR_MESSAGE);
+            return; // Important: Exit the method if hashing fails
+        }
+
+        pstmt.setString(6, hashedPassword); // Store the hashed password
+        pstmt.setString(7, use.getSelectedItem().toString());
+
+        int rowsAffected = pstmt.executeUpdate();
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(this, "Added Successfully");
+            usersForm usf = new usersForm();
+            usf.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add user (no rows affected).", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }//GEN-LAST:event_jButton3ActionPerformed
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();}
+    }//GEN-LAST:event_addActionPerformed
 
     private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tyActionPerformed
+
+    private void useActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_useActionPerformed
+
+    private void papasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_papasActionPerformed
+         if (papas.isSelected()) {
+        ps.setEchoChar((char) 0); // Show the password
+    } else {
+        ps.setEchoChar('*'); // Hide the password
+    }
+
+    }//GEN-LAST:event_papasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,10 +411,14 @@ public class addemployee extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Main;
     private javax.swing.JPanel Navigator;
+    private javax.swing.JButton add;
     private javax.swing.JTextField em;
     private javax.swing.JTextField fn;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -364,8 +428,10 @@ public class addemployee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField ln;
+    private javax.swing.JCheckBox papas;
     private javax.swing.JPasswordField ps;
     private javax.swing.JComboBox<String> ty;
     private javax.swing.JTextField us;
+    public javax.swing.JComboBox<String> use;
     // End of variables declaration//GEN-END:variables
 }
