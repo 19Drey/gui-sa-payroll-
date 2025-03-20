@@ -10,6 +10,15 @@ public class Session {
     private String username;
     private String userType;
     private String status;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     // Private constructor for singleton pattern
     private Session() {

@@ -293,7 +293,7 @@ public class Regform extends javax.swing.JFrame {
     }//GEN-LAST:event_lnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-  if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
+    if (fn.getText().trim().isEmpty() || ln.getText().trim().isEmpty() || em.getText().trim().isEmpty() || us.getText().trim().isEmpty() || ps.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
@@ -308,11 +308,11 @@ public class Regform extends javax.swing.JFrame {
         return;
     }
 
-    String sql = "INSERT INTO `your_table_name` (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO your_table_name (FirstName, LastName, Email, UserType, Username, Password, Status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = dbConnect.getConnect();
-         PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Username` = ?");
-         PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM `your_table_name` WHERE `Email` = ?");
+         PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM your_table_name WHERE Username = ?");
+         PreparedStatement emailCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM your_table_name WHERE Email = ?");
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         checkStmt.setString(1, us.getText().trim());
@@ -370,7 +370,6 @@ public class Regform extends javax.swing.JFrame {
 
 
     
-
     
     }//GEN-LAST:event_jButton3ActionPerformed
 

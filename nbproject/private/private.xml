@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/adminDashboard.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/createUserForm.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/adminUsers.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/edituser.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/employeeDeductions.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/usersForm.java</file>
+            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/user/changePass.java</file>
+            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/config/Session.java</file>
             <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/payroll/l0ginform.java</file>
-            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/admin/addemployee.java</file>
+            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/user/userdashboard.java</file>
+            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/user/accountDetails.java</file>
+            <file>file:/C:/Users/II/Downloads/gui-sa-payroll-/src/payroll/Regform.java</file>
         </group>
     </open-files>
 </project-private>

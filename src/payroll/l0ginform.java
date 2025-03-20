@@ -255,13 +255,8 @@ String usernameInput = us.getText().trim();
         JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    String hashedPasswordInput = null; 
-        try {
-            hashedPasswordInput = hashPassword(passwordInput);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(l0ginform.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    String sql = "SELECT id, FirstName, LastName, Email, Username, UserType, Status, Password FROM users WHERE us = ?";
+
+    String sql = "SELECT id, FirstName, LastName, Email, UserType, Username, Password, Status FROM your_table_name WHERE Username = ?";
 
     try (Connection connect = new dbConnect().getConnection(); 
          PreparedStatement pst = connect.prepareStatement(sql)) {
@@ -270,41 +265,53 @@ String usernameInput = us.getText().trim();
         ResultSet rs = pst.executeQuery();
 
         if (rs.next()) {
-            String dbPassword = rs.getString("Password"); 
+            String dbPasswordHash = rs.getString("Password"); 
             String status = rs.getString("Status");
-            String userType = rs.getString("UserType"); 
-            
-            Session ses = Session.getInstance();
-                    ses.setUserId(rs.getInt("id"));
-                    ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
-                    ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
-                    ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
-                    ses.setUsername(rs.getString("username") != null ? rs.getString("username") : "");
-                    ses.setUserType(rs.getString("userType") != null ? rs.getString("userType") : "");
-                    ses.setStatus(rs.getString("status") != null ? rs.getString("status") : "");
+            String userType = rs.getString("UserType");
 
-            if (status.equalsIgnoreCase("Pending")) {
-                JOptionPane.showMessageDialog(this, "Your account is pending. Please wait for admin approval.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+            
+            String hashedInputPassword = hashPassword(passwordInput);
+
+            if (hashedInputPassword == null) {
+                JOptionPane.showMessageDialog(this, "Error hashing password. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-          if (hashedPasswordInput.equals(dbPassword)) {
-            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-             
-           
 
+            if (status.equalsIgnoreCase("Pending")) {
+                JOptionPane.showMessageDialog(this, "Your account is pending approval. Please wait for admin approval.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (hashedInputPassword.equals(dbPasswordHash)) { 
+                JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                
+                Session sess = Session.getInstance();
+                sess.setUserId(rs.getInt("id"));  
+                sess.setFirstName(rs.getString("FirstName"));
+                sess.setLastName(rs.getString("LastName"));
+                
+                sess.setEmail(rs.getString("Email"));
+                sess.setUsername(rs.getString("Username"));
+                sess.setPassword(rs.getString("Password"));
+                sess.setUserType(rs.getString("UserType"));
+                sess.setStatus(rs.getString("Status"));
+                sess.setPassword(passwordInput);
+                
                 switch (userType.toLowerCase()) {
-                    case "Admin":   
-                    case "Employee":
+                    case "admin":
+                    case "ceo":
                         new adminDashboard().setVisible(true);
                         break;
-                    case "User":
+                    case "employee":
+                    case "user":
                         new userdashboard().setVisible(true);
                         break;
                     default:
                         JOptionPane.showMessageDialog(this, "Invalid User Type!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-                this.dispose(); 
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -313,8 +320,12 @@ String usernameInput = us.getText().trim();
         }
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }         
+        JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }   catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(l0ginform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_passActionPerformed
 
     private void regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regisMouseClicked
@@ -349,60 +360,70 @@ String usernameInput = us.getText().trim();
     }//GEN-LAST:event_showpassActionPerformed
 
     private void psKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psKeyPressed
-  if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-   String username = us.getText().trim();
-String password = new String(ps.getPassword()).trim();
+        String username = us.getText().trim();
+        String password = new String(ps.getPassword()).trim();
 
-if (username.isEmpty() || password.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Username and password cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username and password cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-try {
-    String hashedPassword = Hash.hashPassword(password);
+        try {
+            String hashedPassword = Hash.hashPassword(password);
 
-    String url = "jdbc:mysql://localhost:3306/payroll_dbbb";
-    String dbUsername = "root";
-    String dbPassword = "";
+            String url = "jdbc:mysql://localhost:3306/payroll_dbbb";
+            String dbUsername = "root";
+            String dbPassword = "";
 
-    try (Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) {
+            try (Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
+                 PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) {
 
-        pst.setString(1, username);
-        pst.setString(2, hashedPassword); 
-        try (ResultSet rs = pst.executeQuery()) {
-            if (rs.next()) {
-               
-                Session ses = Session.getInstance();
-                ses.setUserId(rs.getInt("id"));
-                ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
-                ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
-                ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
-                ses.setUsername(rs.getString("username") != null ? rs.getString("username") : "");
-                ses.setUserType(rs.getString("userType") != null ? rs.getString("userType") : "");
-                ses.setStatus(rs.getString("status") != null ? rs.getString("status") : "");
-                System.out.println("" + ses.getUserId());
+                pst.setString(1, username);
+                pst.setString(2, hashedPassword); 
+                
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        String status = rs.getString("Status");
 
-                JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        if ("Pending".equalsIgnoreCase(status)) {
+                            JOptionPane.showMessageDialog(this, "Your account is pending. Needs admin approval.", "Account Pending", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        } else if ("Active".equalsIgnoreCase(status)) {
+                            Session ses = Session.getInstance();
+                            ses.setUserId(rs.getInt("id"));
+                            ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
+                            ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
+                            ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
+                            ses.setUsername(rs.getString("username") != null ? rs.getString("username") : "");
+                            ses.setUserType(rs.getString("userType") != null ? rs.getString("userType") : "");
+                            ses.setStatus(status);
 
-                adminDashboard adm = new adminDashboard();
-                adm.setVisible(true);
-                this.dispose();
+                            System.out.println("User ID: " + ses.getUserId());
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                            adminDashboard adm = new adminDashboard();
+                            adm.setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Your account status is not recognized.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        } catch (NoSuchAlgorithmException ex) {
+            JOptionPane.showMessageDialog(this, "Hashing Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
-
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();
-} catch (NoSuchAlgorithmException ex) {
-    JOptionPane.showMessageDialog(this, "Hashing Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();}    //Removed handle login, as it's not clear what it does.
-}
     }//GEN-LAST:event_psKeyPressed
 
     /**

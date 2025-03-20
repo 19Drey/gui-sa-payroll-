@@ -51,13 +51,15 @@ public class accountDetails extends javax.swing.JFrame {
         ln = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         em = new javax.swing.JTextField();
+        ty = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        ty = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         us = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        em1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -147,6 +149,7 @@ public class accountDetails extends javax.swing.JFrame {
         });
         Main.add(add_employee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        fn.setEditable(false);
         fn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fn.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +165,7 @@ public class accountDetails extends javax.swing.JFrame {
         jLabel8.setText("First Name:");
         Main.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 120, 30));
 
+        ln.setEditable(false);
         ln.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ln.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ln.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +181,7 @@ public class accountDetails extends javax.swing.JFrame {
         jLabel9.setText("Last Name:");
         Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 120, 30));
 
+        em.setEditable(false);
         em.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         em.addActionListener(new java.awt.event.ActionListener() {
@@ -184,22 +189,23 @@ public class accountDetails extends javax.swing.JFrame {
                 emActionPerformed(evt);
             }
         });
-        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 230, 40));
+        Main.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 230, 40));
+
+        ty.setEditable(false);
+        ty.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        ty.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tyActionPerformed(evt);
+            }
+        });
+        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 230, 40));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Email:");
         Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 120, 30));
-
-        ty.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECT TYPE", "USER", "EMPLOYEE", "CEO" }));
-        ty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tyActionPerformed(evt);
-            }
-        });
-        Main.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, 230, 40));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,6 +225,7 @@ public class accountDetails extends javax.swing.JFrame {
         });
         Main.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 540, 120, 30));
 
+        us.setEditable(false);
         us.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         us.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         us.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +244,19 @@ public class accountDetails extends javax.swing.JFrame {
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/photo-1574610758891-5b809b6e6e2e (1).jpg"))); // NOI18N
         Main.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 620, 520));
+
+        jTextField1.setText("jTextField1");
+        Main.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, -1, -1));
+
+        em1.setEditable(false);
+        em1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        em1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        em1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                em1ActionPerformed(evt);
+            }
+        });
+        Main.add(em1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 230, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,7 +284,7 @@ public class accountDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_empMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        adminDashboard loginForm = new adminDashboard();
+        userdashboard loginForm = new userdashboard();
         loginForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -315,10 +335,6 @@ public class accountDetails extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_emActionPerformed
 
-    private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tyActionPerformed
-
     private void usActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usActionPerformed
         if (us.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Username is required!");
@@ -339,6 +355,7 @@ public class accountDetails extends javax.swing.JFrame {
    ln.setText(""+sess.getLastName());
    emp.setText(""+sess.getFirstName());
    em.setText(""+sess.getEmail());
+   ty.setText(""+sess.getStatus());
    us.setText(""+sess.getUsername());
    ;
      
@@ -349,6 +366,14 @@ public class accountDetails extends javax.swing.JFrame {
     cg.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void em1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_em1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_em1ActionPerformed
+
+    private void tyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,6 +418,7 @@ public class accountDetails extends javax.swing.JFrame {
     private javax.swing.JButton add_employee;
     private javax.swing.JButton add_employee1;
     private javax.swing.JTextField em;
+    private javax.swing.JTextField em1;
     private javax.swing.JLabel emp;
     private javax.swing.JTextField fn;
     private javax.swing.JLabel iddisplay;
@@ -410,8 +436,9 @@ public class accountDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField ln;
-    private javax.swing.JComboBox<String> ty;
+    private javax.swing.JTextField ty;
     private javax.swing.JTextField us;
     // End of variables declaration//GEN-END:variables
 }

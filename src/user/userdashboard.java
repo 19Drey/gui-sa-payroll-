@@ -5,6 +5,7 @@
  */
 package user;
 
+import config.Session;
 import javax.swing.JOptionPane;
 import payroll.l0ginform;
 
@@ -37,15 +38,22 @@ public class userdashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Navigator = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        emp = new javax.swing.JLabel();
+        us = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        ln = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        us2 = new javax.swing.JLabel();
         add_employee = new javax.swing.JButton();
         add_employee1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         Main.setBackground(new java.awt.Color(0, 153, 153));
         Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,15 +85,15 @@ public class userdashboard extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/images-removebg-preview (1).png"))); // NOI18N
         Navigator.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 20, -1, 180));
 
-        emp.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        emp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        emp.setText("USERS");
-        emp.addMouseListener(new java.awt.event.MouseAdapter() {
+        us.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        us.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        us.setText("USERS");
+        us.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                empMouseClicked(evt);
+                usMouseClicked(evt);
             }
         });
-        Navigator.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 170, 60));
+        Navigator.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 200, 170, 60));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/times-hexagon (1).png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,8 +103,28 @@ public class userdashboard extends javax.swing.JFrame {
         });
         Navigator.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 60, 80));
 
+        ln.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        ln.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ln.setText("USERS");
+        ln.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lnMouseClicked(evt);
+            }
+        });
+        Navigator.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 170, 60));
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941.jpg"))); // NOI18N
         Navigator.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 170, 510));
+
+        us2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        us2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        us2.setText("USERS");
+        us2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                us2MouseClicked(evt);
+            }
+        });
+        Navigator.add(us2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 170, 60));
 
         Main.add(Navigator, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 170, 520));
 
@@ -118,6 +146,7 @@ public class userdashboard extends javax.swing.JFrame {
         });
         Main.add(add_employee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel2MouseClicked(evt);
@@ -127,7 +156,7 @@ public class userdashboard extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/852253-200.png"))); // NOI18N
-        jLabel8.setText("ACCOUNT");
+        jLabel8.setText("My account");
         jPanel2.add(jLabel8);
         jLabel8.setBounds(0, 10, 300, 90);
 
@@ -159,9 +188,9 @@ public class userdashboard extends javax.swing.JFrame {
             System.exit(0);}
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void empMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_empMouseClicked
+    private void usMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usMouseClicked
 
-    }//GEN-LAST:event_empMouseClicked
+    }//GEN-LAST:event_usMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         l0ginform loginForm = new l0ginform();
@@ -183,6 +212,28 @@ public class userdashboard extends javax.swing.JFrame {
         acd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+       
+       if(sess.getUserId() == 0){
+           JOptionPane.showMessageDialog(null,"No account found , Log in First!");
+           l0ginform lf = new l0ginform();
+           lf.setVisible(true);
+           this.dispose();
+       
+       }
+       us.setText(""+sess.getFirstName());
+       ln.setText(""+sess.getLastName());
+    }//GEN-LAST:event_formWindowActivated
+
+    private void lnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lnMouseClicked
+
+    private void us2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_us2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_us2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -225,7 +276,6 @@ public class userdashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Navigator;
     private javax.swing.JButton add_employee;
     private javax.swing.JButton add_employee1;
-    private javax.swing.JLabel emp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,5 +284,8 @@ public class userdashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel ln;
+    private javax.swing.JLabel us;
+    private javax.swing.JLabel us2;
     // End of variables declaration//GEN-END:variables
 }
