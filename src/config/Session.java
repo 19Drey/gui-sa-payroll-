@@ -90,7 +90,7 @@ public class Session {
     }
 
     public void clear() {
-        int userId1 = this.userId;
+        int userId = this.userId;
         this.firstName = null;
         this.lastName = null;
         this.email = null;

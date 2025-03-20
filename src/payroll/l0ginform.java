@@ -7,7 +7,9 @@ package payroll;
 
 import admin.adminDashboard;
 import config.Hash;
+import static config.Hash.hashPassword;
 import config.Session;
+import config.dbConnect;
 import java.awt.event.KeyEvent;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -15,7 +17,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import user.userdashboard;
 
 /**
  *
@@ -243,58 +248,73 @@ public class l0ginform extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-String username = us.getText().trim();
-String password = new String(ps.getPassword()).trim();
+String usernameInput = us.getText().trim();
+    String passwordInput = new String(ps.getPassword()).trim();
 
-if (username.isEmpty() || password.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Username and password cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-try {
-    String hashedPassword = Hash.hashPassword(password);
-
-    String url = "jdbc:mysql://localhost:3306/payroll_dbbb";
-    String dbUsername = "root";
-    String dbPassword = "";
-
-    try (Connection con = DriverManager.getConnection(url, dbUsername, dbPassword);
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM your_table_name WHERE Username = ? AND Password = ?")) {
-
-        pst.setString(1, username);
-        pst.setString(2, hashedPassword); 
-        try (ResultSet rs = pst.executeQuery()) {
-            if (rs.next()) {
-               
-                Session ses = Session.getInstance();
-                ses.setUserId(rs.getInt("id"));
-                ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
-                ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
-                ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
-                ses.setUsername(rs.getString("username") != null ? rs.getString("username") : "");
-                ses.setUserType(rs.getString("userType") != null ? rs.getString("userType") : "");
-                ses.setStatus(rs.getString("status") != null ? rs.getString("status") : "");
-                System.out.println("" + ses.getUserId());
-
-                JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                adminDashboard adm = new adminDashboard();
-                adm.setVisible(true);
-                this.dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
+    String hashedPasswordInput = null; 
+        try {
+            hashedPasswordInput = hashPassword(passwordInput);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(l0ginform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    String sql = "SELECT id, FirstName, LastName, Email, Username, UserType, Status, Password FROM users WHERE us = ?";
 
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();
-} catch (NoSuchAlgorithmException ex) {
-    JOptionPane.showMessageDialog(this, "Hashing Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();}
+    try (Connection connect = new dbConnect().getConnection(); 
+         PreparedStatement pst = connect.prepareStatement(sql)) {
+        
+        pst.setString(1, usernameInput);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            String dbPassword = rs.getString("Password"); 
+            String status = rs.getString("Status");
+            String userType = rs.getString("UserType"); 
+            
+            Session ses = Session.getInstance();
+                    ses.setUserId(rs.getInt("id"));
+                    ses.setFirstName(rs.getString("firstname") != null ? rs.getString("firstname") : "");
+                    ses.setLastName(rs.getString("lastname") != null ? rs.getString("lastname") : "");
+                    ses.setEmail(rs.getString("email") != null ? rs.getString("email") : "");
+                    ses.setUsername(rs.getString("username") != null ? rs.getString("username") : "");
+                    ses.setUserType(rs.getString("userType") != null ? rs.getString("userType") : "");
+                    ses.setStatus(rs.getString("status") != null ? rs.getString("status") : "");
+
+            if (status.equalsIgnoreCase("Pending")) {
+                JOptionPane.showMessageDialog(this, "Your account is pending. Please wait for admin approval.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+          if (hashedPasswordInput.equals(dbPassword)) {
+            JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+             
            
+
+                switch (userType.toLowerCase()) {
+                    case "Admin":   
+                    case "Employee":
+                        new adminDashboard().setVisible(true);
+                        break;
+                    case "User":
+                        new userdashboard().setVisible(true);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Invalid User Type!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+                this.dispose(); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }         
     }//GEN-LAST:event_passActionPerformed
 
     private void regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regisMouseClicked

@@ -77,8 +77,6 @@ public class adminDashboard extends javax.swing.JFrame {
         add_employee = new javax.swing.JButton();
         add_employee1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -167,21 +165,6 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.setLayout(null);
         Main.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, -1));
 
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
-        jPanel2.setLayout(null);
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/852253-200.png"))); // NOI18N
-        jLabel8.setText("ACCOUNT");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(0, 10, 300, 90);
-
-        Main.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 390, 110));
-
         jPanel3.setLayout(null);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -209,7 +192,7 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 190, 70));
 
-        Main.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 390, 90));
+        Main.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 390, 90));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/—Pngtree—ethereal watercolor background in shades_13379941_1.jpg"))); // NOI18N
         Main.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 70, 830, 510));
@@ -297,12 +280,6 @@ public class adminDashboard extends javax.swing.JFrame {
          this.dispose();
     }//GEN-LAST:event_jLabel9MouseClicked
 
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-      accountDetails   acd = new accountDetails();
-      acd.setVisible(true);
-      this.dispose();
-    }//GEN-LAST:event_jPanel2MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -353,10 +330,8 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
